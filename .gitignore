@@ -11,3 +11,6 @@
 
 # Ignore OS X crap
 .DS_Store
+
+# Ignore images folder
+/public/img/stickers/*
