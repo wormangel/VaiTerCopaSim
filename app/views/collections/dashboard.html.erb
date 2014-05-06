@@ -1,0 +1,50 @@
+<p>
+  <button type="button" class="btn btn-primary btn-lg" id="duplicates_btn">Refugos</button>
+  <button type="button" class="btn btn-default btn-lg" id="missing_btn">Faltantes</button>
+</p>
+
+<div id="modal_add_duplicates" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    	<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Adicionar refugos</h4>
+      </div>
+      
+      <div class="modal-body">
+        Digite na caixa de texto abaixo o número da figurinha e dê enter, e assim sucessivamente. <br/>
+        <!--Você também pode colar a lista de figurinhas separadas por vírgula, espaço ou hífen.<br/><br/> Hue Hue Hue -->
+        
+        Quando terminar, clique em 'Pronto!'
+        
+        <p/><br/>	
+        
+        <div>
+    			<input type="text" class="form-control input-lg" id="sticker_number" placeholder="Digite o número da figurinha e dê Enter">
+    		</div>
+    		
+    		<br/>
+    		
+    		<div id="result_area" style="display:none;">
+    			<div id="success_area" style="display:none;">
+    				Refugo adicionado!
+    				<div class="sticker" style="display:none;">
+    					<img class="sticker_image" src=""/>
+    				</div>
+    			</div>
+    			<div id="failure_area" style="display:none;">
+    				Número inválido!
+    			</div>
+    		</div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Pronto!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<input type="hidden" id="hdn" value="<%= @stickers_json %>"/>

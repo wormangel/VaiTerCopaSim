@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140425043006) do
+ActiveRecord::Schema.define(version: 20140425195011) do
 
   create_table "stickers", force: true do |t|
     t.string   "number"
@@ -22,5 +22,8 @@ ActiveRecord::Schema.define(version: 20140425043006) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "stickers", ["number"], name: "index_stickers_on_number", unique: true
+  add_index "stickers", ["order"], name: "index_stickers_on_order", unique: true
 
 end
