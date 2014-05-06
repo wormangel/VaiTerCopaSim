@@ -4,12 +4,15 @@ $(document).ready(function(){
 		var stickers = JSON.parse(json_node);
 
 		function displayAlert(){
+			reset_result_area();
 			$('#modal_add_duplicates').modal();
 			$('#sticker_number').focus();
 		}
 		
-		function verifySticker(){
+		function analyzeInput(){
 			var input_val = $('#sticker_number').val();
+			
+			var tokens = input_val.split(/[\s,-]+/);
 			var sticker = get_sticker_from_json(input_val);
 			
 			reset_result_area();
@@ -25,6 +28,8 @@ $(document).ready(function(){
 			$('#sticker_number').focus();
 			
 		}
+		
+		
 		
 		function display_result_area(success) {
 			if (success) {
@@ -57,8 +62,8 @@ $(document).ready(function(){
 		
 		$('#sticker_number').keyup(function(e){
 			var input_length = $('#sticker_number').val().length;
-			if ((e.keyCode == 13 && input_length != 0) || input_length == 3) {// Enter was pressed or number has 3 digits
-				verifySticker();
+			if ((e.keyCode == 13 && input_length != 0)) {// Enter was pressed
+				analyzeInput();
 			}
 		});
 })
