@@ -17,7 +17,7 @@ $(document).ready(function(){
 			
 			reset_result_area();
 			if (sticker != undefined) {
-				$('.sticker_image').attr('src', '/img/stickers/' + sticker['number'] + '.jpg');
+				$('.sticker_image').attr('src', images_prefix + sticker['number'] + '.jpg');
 				
 				display_result_area(true);
 			} else {

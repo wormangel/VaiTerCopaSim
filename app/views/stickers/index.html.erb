@@ -12,7 +12,7 @@
   <% @stickers.each do |s| %>
     <tr>
       <td><%= s.number %></td>
-      <td><img src="/img/stickers/<%=s.image%>" width="100" height="131"></td>
+      <td><img src="<%= ENV['STICKERS_IMAGES_PREFIX'] %><%=s.image%>" width="100" height="131"></td>
       <td><%= s.name %></td>
       <td><%= s.team %></td>
       <td><%= s.order %></td>
