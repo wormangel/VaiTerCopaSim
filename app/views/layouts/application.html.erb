@@ -2,6 +2,10 @@
 <html>
 <head>
   <title>TrocaCopa</title>
+  <script type="text/javascript">
+		var fbAppId = '<%= ENV['FB_APP_ID'] %>';
+	</script>
+  
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
