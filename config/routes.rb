@@ -2,8 +2,6 @@ Rails.application.routes.draw do
   get 'welcome/index'
 
   get 'collections/dashboard'
-
-  get 'stickers/populate'
   
   resources :stickers, :only => [:show, :index]
   
