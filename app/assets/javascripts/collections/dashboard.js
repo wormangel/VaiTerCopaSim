@@ -12,7 +12,7 @@ $(document).ready(function(){
 		function analyzeInput(){
 			var input_val = $('#sticker_number').val();
 			
-			var tokens = input_val.split(/[\s,-]+/);
+			var tokens = input_val.split(/[\s,\-]+|\(\d+\)/);
 			var sticker = get_sticker_from_json(input_val);
 			
 			reset_result_area();

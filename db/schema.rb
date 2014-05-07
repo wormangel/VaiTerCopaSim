@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140425195011) do
+ActiveRecord::Schema.define(version: 20140506232321) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "stickers", force: true do |t|
     t.string   "number"
@@ -23,7 +26,17 @@ ActiveRecord::Schema.define(version: 20140425195011) do
     t.datetime "updated_at"
   end
 
-  add_index "stickers", ["number"], name: "index_stickers_on_number", unique: true
-  add_index "stickers", ["order"], name: "index_stickers_on_order", unique: true
+  add_index "stickers", ["number"], name: "index_stickers_on_number", unique: true, using: :btree
+  add_index "stickers", ["order"], name: "index_stickers_on_order", unique: true, using: :btree
+
+  create_table "users", force: true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.string   "oauth_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "oauth_expires_at"
+  end
 
 end

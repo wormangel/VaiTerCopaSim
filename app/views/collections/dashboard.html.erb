@@ -1,3 +1,7 @@
+<% content_for :custom_js do %>
+  <%= javascript_include_tag "collections/dashboard", "data-turbolinks-track" => true %>
+<% end %>
+
 <p>
   <button type="button" class="btn btn-primary btn-lg" id="duplicates_btn">Refugos</button>
   <button type="button" class="btn btn-default btn-lg" id="missing_btn">Faltantes</button>

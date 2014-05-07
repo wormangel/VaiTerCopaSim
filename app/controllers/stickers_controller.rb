@@ -78,7 +78,7 @@ class StickersController < ApplicationController
   end
   
   def index
-  	@stickers = Sticker.all
+  	@stickers = Sticker.order(:order)
   end
   
   def set_team(starting_sticker, ending_sticker, team)
