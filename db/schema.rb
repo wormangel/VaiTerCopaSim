@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140507201212) do
+ActiveRecord::Schema.define(version: 20140513042907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20140507201212) do
     t.integer  "sticker_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "qty",        default: 0
   end
 
   add_index "duplicate_stickers", ["sticker_id"], name: "index_duplicate_stickers_on_sticker_id", using: :btree
@@ -31,6 +32,7 @@ ActiveRecord::Schema.define(version: 20140507201212) do
     t.integer  "sticker_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "qty",        default: 0
   end
 
   add_index "needed_stickers", ["sticker_id"], name: "index_needed_stickers_on_sticker_id", using: :btree
