@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   get 'collections/dashboard'
   
+  get 'collections/add_stickers'
+  get 'collections/get_stickers'
+  
   resources :stickers, :only => [:show, :index]
   
   match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]

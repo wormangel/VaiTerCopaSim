@@ -5,6 +5,9 @@
   <script type="text/javascript">
 		var fbAppId = '<%= ENV['FB_APP_ID'] %>';
 		var images_prefix = '<%= ENV['STICKERS_IMAGES_PREFIX'] %>';
+		<% if current_user %>
+			var user_uid = '<%= current_user.uid %>';
+		<% end %>
 	</script>
   
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -17,10 +20,10 @@
 </head>
 <body>
 
-<div id="user-widget">
+<div id="user-widget" class="text-right">
 	<% if current_user %>
-    Welcome <strong><%= current_user.name %></strong>!
-    <%= link_to "Sign out", signout_path, id: "sign_out" %>
+    Bem-vindo <strong><%= current_user.name %></strong>!
+    <%= link_to "Sair", signout_path, id: "sign_out" %>
   <% end %>
 </div>
 
