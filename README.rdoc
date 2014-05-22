@@ -1,18 +1,18 @@
 == README
 
-* Version and dependencies
+# Version and dependencies
 
-Rails 4.1.0
-Ruby 2.1.1
-PostgreSQL
+* Rails 4.1.0
+* Ruby 2.1.1
+* PostgreSQL
 
-* Configuration
+# Configuration
 
 You need to set three environment variables:
 
-STICKERS_IMAGES_PREFIX - this holds the location of the sticker images, up to the trailing slashes (e.g. /my/path/to/stickers/images/)
-FB_APP_ID - the Facebook application Id (used for logging users in)
-FB_APP_SECRET - the Facebook app secret
+* __STICKERS_IMAGES_PREFIX__ - this holds the location of the sticker images, up to the trailing slashes (e.g. /my/path/to/stickers/images/)
+* __FB_APP_ID__ - the Facebook application Id (used for logging users in)
+* __FB_APP_SECRET__ - the Facebook app secret
 
 Every other dependency is managed by bundler. Just download the code and run
 <tt>bundle install</tt>
