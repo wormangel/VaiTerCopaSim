@@ -47,6 +47,33 @@ class NeededSticker < ActiveRecord::Base
 	  @outcome
   end
   
+  def self.calculate_stats(user)
+  	@missing = NeededSticker.joins(:sticker).where(user: user).order('stickers.order')
+  	
+  	@stats = Hash.new
+  	@stats['collected'] = 649 - @missing.size
+  	@stats['missing'] = @missing.size
+  	
+  	@stats['teams'] = Hash.new
+  	
+  	@stats['teams']['Especiais'] = 8 - @missing.where(user: user, stickers: { team: 'Especiais'}).size
+		@stats['teams']['Estádios'] = 24 - @missing.where(user: user, stickers: { team: 'Estádios'}).size
+		@stats['teams']['Propaganda'] = 9 - @missing.where(user: user, stickers: { team: 'Propaganda'}).size
+		
+		teams = ['Brasil', 'Croácia', 'México', 'Camarões', 'Espanha', 'Holanda', 'Chile', 
+			'Austrália', 'Colômbia', 'Grécia', 'Costa do Marfim', 'Japão', 'Uruguai', 'Costa Rica',
+			'Inglaterra', 'Itália', 'Suiça', 'Equador', 'França', 'Honduras', 'Argentina' ,
+			'Bósnia Herzegovina', 'Irã', 'Nigéria', 'Alemanha', 'Portugal', 'Gana', 'Estados Unidos',
+			'Bélgica', 'Algéria', 'Rússia', 'Coréia'
+		]
+		
+		teams.each do |team|
+			@stats['teams'][team] = 19 - @missing.where(user: user, stickers: { team: team}).size
+		end
+
+  	@stats
+  end
+  
   def as_json(options)
 		super(:include => { :user => {:only => [:uid, :name]}, :sticker => { :only => [:number, :order, :name, :image, :team] }})
 	end

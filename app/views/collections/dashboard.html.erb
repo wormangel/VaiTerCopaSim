@@ -72,6 +72,25 @@
 	</div>
 </div>
 
+<div id="div_stats">
+	<h1>Estatísticas</h1>
+	
+	<p>Se você não esqueceu de colocar nada aí em cima, você já deve ter colado <strong><span id="total_stickers_collected"><%= @stickers_collected %></span></strong> figurinhas!</p>
+	
+	<h5>Relação das faltantes</h5>
+	<ul>
+		<% @stats['teams'].keys.each do |s| %>	
+		<li id="li_stats_<%= s %>">
+			<strong> <%= s %>: </strong>
+			<% if @stats['teams'][s] == 0 %>
+				Completo!
+			<% else %>
+				Faltam <strong><%= @stats['teams'][s] %></strong> figurinhas</li> 
+			<% end %>
+		<% end %>
+	</ul>
+</div>
+
 <div id="modal_add_stickers" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">

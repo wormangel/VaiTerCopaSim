@@ -12,6 +12,8 @@ class CollectionsController < ApplicationController
   	@dupes = DuplicateSticker.joins(:sticker).where(user: current_user).order('stickers.order')
   	@missing = NeededSticker.joins(:sticker).where(user: current_user).order('stickers.order')
   	
+  	@stats = NeededSticker.calculate_stats(current_user)
+  	
   end
   
   def add_stickers
