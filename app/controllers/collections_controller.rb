@@ -24,7 +24,7 @@ class CollectionsController < ApplicationController
   	case type
   	when "duplicate"
   		m = DuplicateSticker.method(:add_to_collection)
-  	when "needed"
+  	when "missing"
   		m = NeededSticker.method(:add_to_collection)
   	end
   	
@@ -69,7 +69,7 @@ class CollectionsController < ApplicationController
   	when "duplicate"
   		stickers = DuplicateSticker.joins(:sticker).where(user: user).order('stickers.order')
   		total = stickers.sum(:qty)
-  	when "needed"
+  	when "missing"
   		stickers = NeededSticker.joins(:sticker).where(user: user).order('stickers.order')
   		total = stickers.size
   	end

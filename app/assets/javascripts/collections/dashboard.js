@@ -51,9 +51,11 @@ $(document).ready(function(){
 		}
 		
 		function update_dashboard(data, type_param){
-			$('#div_dupes_stickers_container').hide();
-			$('.sticker_placeholder').remove();
-			$('#sticker_refresh_spinner').show();
+		
+			var stickers_container = type_param == "duplicate" ? $('#div_dupes_stickers_container') : $('#div_missing_stickers_container');
+			stickers_container.hide();
+			stickers_container.find('.sticker_placeholder').remove();
+			stickers_container.find('.sticker_refresh_spinner').show();
 			
 			$.ajax({url: "/collections/get_stickers?user=" + user_uid + "&type=" + type_param,
 				complete: function(data){
@@ -62,7 +64,7 @@ $(document).ready(function(){
 						var newSticker = $('#sticker_placeholder_template').clone();
 						newSticker.removeAttr('id');
 						newSticker.find('.sticker_image').attr('src', images_prefix + sticker_info['image']);
-						if (sticker['qty'] > 1) {
+						if ( type_param == 'duplicate' && sticker['qty'] > 1) {
 							newSticker.find('.sticker_dupe_count').text(sticker['qty']);
 						} else {
 							newSticker.find('.sticker_dupe_count').remove();
@@ -71,12 +73,13 @@ $(document).ready(function(){
 						newSticker.addClass('sticker_placeholder');
 						newSticker.show();
 						
-						$('#div_dupes_stickers_container').append(newSticker);
+						stickers_container.append(newSticker);
 					});
 					
-					$('#dupes_count').text(data.responseJSON.total);
-					$('#sticker_refresh_spinner').hide();
-					$('#div_dupes_stickers_container').show();
+					var count_elem = type_param == 'duplicate' ? $('#dupes_count') : $('#missing_count');
+					count_elem.text(data.responseJSON.total);
+					stickers_container.find('.sticker_refresh_spinner').hide();
+					stickers_container.show();
 				}
 			});
 		}
@@ -106,7 +109,7 @@ $(document).ready(function(){
 			var stickers = get_numbers_from_input();
 			
 			if (stickers.length > 0) {
-				add_stickers(stickers, 'missing');
+				add_stickers(stickers, 'missing', update_dashboard, error);
 			} else { // Did not find a sticker for any of the input values
 			}
 			

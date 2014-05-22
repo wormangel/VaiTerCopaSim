@@ -19,11 +19,18 @@
 	right: -10px;
 }
 
+.icon_delete_sticker {
+	background-color: #F00;
+	position: absolute;
+	top: -10px;
+	left: -10px;
+}
+
 .sticker_image_placeholder {
 	position: relative;
 }
 
-#sticker_refresh_spinner {
+.sticker_refresh_spinner {
 	display:inline-block;
 	color: rgb(0,174,239);
 }
