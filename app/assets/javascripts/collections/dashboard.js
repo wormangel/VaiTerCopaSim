@@ -7,6 +7,7 @@ $(document).ready(function(){
 		function display_modal(){
 			$('#modal_add_stickers').modal();
 			$('#textarea_sticker_numbers').focus();
+			$('#textarea_sticker_numbers').val('');
 		}
 		
 		function get_numbers_from_input(){
