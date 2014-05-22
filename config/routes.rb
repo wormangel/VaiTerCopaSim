@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   
   get 'collections/add_stickers'
   get 'collections/get_stickers'
+	get 'collections/del_stickers'
   
   resources :stickers, :only => [:show, :index]
   

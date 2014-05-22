@@ -14,10 +14,13 @@
 		Atualizando refugos...
 	</div>
 	
-	<div id="div_dupes_stickers_container">	
+	<div id="div_dupes_stickers_container" class="stickers_container">	
 	<% @dupes.each do |s| %>
-		<div class="sticker_placeholder">
+		<div class="sticker_placeholder" data-number="<%=s.sticker.number%>">
 			<div class="sticker_image_placeholder">
+				<button class="btn btn-sm btn-danger btn_delete_sticker" data-number="<%=s.sticker.number%>" data-type="dupes">
+					<span class="glyphicon glyphicon-trash"></span>
+				</button>
 				<img class="sticker_image" src="<%= ENV['STICKERS_IMAGES_PREFIX'] %><%= s.sticker.image %>" width="100" height="131">
 				<% if s.qty > 1 %>
 				<span class="badge sticker_dupe_count"><%= s.qty %></span>
@@ -33,6 +36,9 @@
 
 <div id="sticker_placeholder_template" style="display:none;">
 	<div class="sticker_image_placeholder">
+		<button class="btn btn-sm btn-danger btn_delete_sticker">
+			<span class="glyphicon glyphicon-trash"></span>
+		</button>
 		<img class="sticker_image" src="" width="100" height="131">
 		<span class="badge sticker_dupe_count"></span>
 	</div>
@@ -49,10 +55,13 @@
 		Atualizando faltantes...
 	</div>
 	
-	<div id="div_missing_stickers_container">
+	<div id="div_missing_stickers_container" class="stickers_container">
 	<% @missing.each do |s| %>
-		<div class="sticker_placeholder">
+		<div class="sticker_placeholder" data-number="<%=s.sticker.number%>">
 			<div class="sticker_image_placeholder">
+				<button class="btn btn-sm btn-danger btn_delete_sticker" data-number="<%=s.sticker.number%>" data-type="missing">
+					<span class="glyphicon glyphicon-trash"></span>
+				</button>
 				<img class="sticker_image" src="<%= ENV['STICKERS_IMAGES_PREFIX'] %><%=s.sticker.image%>" width="100" height="131">
 			</div>
 			<div style="text-align: center;">

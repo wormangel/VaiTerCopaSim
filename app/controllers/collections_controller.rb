@@ -19,6 +19,7 @@ class CollectionsController < ApplicationController
   	type = params[:type]
   	user_uid = params[:user]
   	
+  	@response = Hash.new
   	@outcomes = Hash.new
   	
   	case type
@@ -34,26 +35,39 @@ class CollectionsController < ApplicationController
   		@outcomes[s] = @outcome
   	end
   	
+  	@response['outcomes'] = @outcomes
+  	
   	respond_to do |format|
-			format.json  { render json: @outcomes }
+			format.json  { render json: @response }
 		end
   	
   end
   
-  def del_sticker
-	  sticker_number = params[:sticker]
+  def del_stickers
+	  sticker_numbers = params[:stickers]
   	type = params[:type]
   	user_uid = params[:user]
   	
+  	@response = Hash.new
+  	@outcomes = Hash.new
+  	
   	case type
   	when "duplicate"
-  		@outcome = DuplicateSticker.del_from_collection(sticker_number, user_uid)
+  		m = DuplicateSticker.method(:del_from_collection)
   	when "needed"
-  		@outcome = NeededSticker.del_from_collection(sticker_number, user_uid)
+  		m = NeededSticker.method(:del_from_collection)
   	end
   	
+  	sticker_numbers_a = sticker_numbers.split(",")
+  	sticker_numbers_a.each do |s|
+  		@outcome = m[s, user_uid]
+  		@outcomes[s] = @outcome
+  	end
+  	
+  	@response['outcomes'] = @outcomes
+  	
   	respond_to do |format|
-			format.json  { render json: @outcome }
+			format.json  { render json: @response }
 		end
   end
   

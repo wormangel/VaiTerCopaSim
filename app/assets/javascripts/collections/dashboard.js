@@ -53,15 +53,16 @@ $(document).ready(function(){
 		function update_dashboard(data, type_param){
 		
 			var stickers_container = type_param == "duplicate" ? $('#div_dupes_stickers_container') : $('#div_missing_stickers_container');
+			var spinner = stickers_container.parent().find('.sticker_refresh_spinner');
 			stickers_container.hide();
 			stickers_container.find('.sticker_placeholder').remove();
-			stickers_container.find('.sticker_refresh_spinner').show();
+			spinner.show();
 			
 			$.ajax({url: "/collections/get_stickers?user=" + user_uid + "&type=" + type_param,
 				complete: function(data){
 					$.each(data.responseJSON.stickers, function(i, sticker) {
 						var sticker_info = sticker['sticker'];
-						var newSticker = $('#sticker_placeholder_template').clone();
+						var newSticker = $('#sticker_placeholder_template').clone(true);
 						newSticker.removeAttr('id');
 						newSticker.find('.sticker_image').attr('src', images_prefix + sticker_info['image']);
 						if ( type_param == 'duplicate' && sticker['qty'] > 1) {
@@ -70,7 +71,12 @@ $(document).ready(function(){
 							newSticker.find('.sticker_dupe_count').remove();
 						}
 						newSticker.find('.sticker_number').text(sticker_info['number']);
+						newSticker.data('number', sticker_info['number']);
+						newSticker.find('.btn_delete_sticker').data('number', sticker_info['number']);
+						newSticker.find('.btn_delete_sticker').data('type', type_param == 'duplicate' ? 'dupes' : 'missing');
 						newSticker.addClass('sticker_placeholder');
+						newSticker.hover(show_del_btn, hide_del_btn);
+						
 						newSticker.show();
 						
 						stickers_container.append(newSticker);
@@ -78,7 +84,7 @@ $(document).ready(function(){
 					
 					var count_elem = type_param == 'duplicate' ? $('#dupes_count') : $('#missing_count');
 					count_elem.text(data.responseJSON.total);
-					stickers_container.find('.sticker_refresh_spinner').hide();
+					spinner.hide();
 					stickers_container.show();
 				}
 			});
@@ -114,4 +120,42 @@ $(document).ready(function(){
 			}
 			
 		});
+		
+		$('.btn_delete_sticker').click(function(){
+			var stickers = []; // in the future maybe batch deleting
+			
+			var sticker_number = $(this).data('number');
+			var type = $(this).data('type');
+			stickers.push(sticker_number);
+			
+			del_stickers(stickers, type, update_dashboard, error);
+		});
+		
+		function del_stickers(stickers, type, success_callback, fail_callback) {
+			var stickers_param = stickers.join(',');
+			var type_param = type == "dupes" ? "duplicate" : "missing";
+		
+			$.ajax({url: "/collections/del_stickers?stickers=" + stickers_param + "&user=" + user_uid + "&type=" + type_param,
+				success: function(data){
+					if (success_callback) {
+						success_callback(data, type_param);
+					}
+				},
+				error: function(data) {
+					if (fail_callback) {
+						fail_callback(data, type_param);
+					}
+				}
+			});
+		}
+		
+		$('.sticker_placeholder, .sticker_placeholder_template').hover(show_del_btn, hide_del_btn);
+		
+		function show_del_btn(e) {
+			$(e.currentTarget).find('.btn_delete_sticker').show();
+		}
+		
+		function hide_del_btn(e) {
+			$(e.currentTarget).find('.btn_delete_sticker').hide();
+		}
 })
