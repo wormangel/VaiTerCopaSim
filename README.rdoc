@@ -1,28 +1,26 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Version and dependencies
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
+Rails 4.1.0
+Ruby 2.1.1
+PostgreSQL
 
 * Configuration
 
-* Database creation
+You need to set three environment variables:
 
-* Database initialization
+STICKERS_IMAGES_PREFIX - this holds the location of the sticker images, up to the trailing slashes (e.g. /my/path/to/stickers/images/)
+FB_APP_ID - the Facebook application Id (used for logging users in)
+FB_APP_SECRET - the Facebook app secret
 
-* How to run the test suite
+Every other dependency is managed by bundler. Just download the code and run
+<tt>bundle install</tt>
+to install every necessary gem.
 
-* Services (job queues, cache servers, search engines, etc.)
+Then create the database and populate it with the stickers info by running
+<tt>rake db:create</tt>
+<tt>rake db:migrate</tt>
+<tt>rake db:seed</tt>
 
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+All set.
