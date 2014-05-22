@@ -1,4 +1,12 @@
-<h1>Coleção do usuário <%= @other_user.name %><span class="zocial facebook icon" style="vertical-align: middle; margin-left: 0.5em;"></span>	</h1>
+
+<h1>Coleção do usuário 
+<a href="https://www.facebook.com/profile.php?uid=<%= @other_user.uid %>">
+	<%= @other_user.name %>
+	<span class="zocial facebook icon" style="vertical-align: middle; margin-left: 0.5em;"></span>
+	<%=	image_tag("http://graph.facebook.com/" + @other_user.uid + "/picture/type=square") %>	
+</a>
+</h1>
+
 
 <div id="div_other_user_dupes">
 	<h1>Refugos dele que lhe interessam (<%= @other_user_dupes.size %>):</h1>
