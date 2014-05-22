@@ -68,11 +68,15 @@ class CollectionsController < ApplicationController
   	case type
   	when "duplicate"
   		stickers = DuplicateSticker.joins(:sticker).where(user: user).order('stickers.order')
+  		total = stickers.sum(:qty)
   	when "needed"
   		stickers = NeededSticker.joins(:sticker).where(user: user).order('stickers.order')
+  		total = stickers.size
   	end
   	
   	@outcome["stickers"] = stickers
+  	@outcome["total"] = total
+  	
 		
 		respond_to do |format|
 			format.json  { render json: @outcome }

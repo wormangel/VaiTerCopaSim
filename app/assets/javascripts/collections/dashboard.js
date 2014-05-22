@@ -74,6 +74,7 @@ $(document).ready(function(){
 						$('#div_dupes_stickers_container').append(newSticker);
 					});
 					
+					$('#dupes_count').text(data.responseJSON.total);
 					$('#sticker_refresh_spinner').hide();
 					$('#div_dupes_stickers_container').show();
 				}

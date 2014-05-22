@@ -7,7 +7,7 @@
 </div>
 
 <div id="div_dupes">
-	<h1>Meus refugos: </h1>
+	<h1>Meus refugos (<span id="dupes_count"><%=@dupes.sum(:qty)%></span>):</h1>
 	
 	<div id="sticker_refresh_spinner" style="display:none;">
 		<div class="spinner"></div>
@@ -43,7 +43,7 @@
 </div>
 
 <div id="div_missing">
-	<h1>Faltam pra eu completar: </h1>
+	<h1>Faltam pra eu completar (<span id="dupes_count"><%=@missing.size%></span>):</h1>
 	
 	<div>
 	<% @missing.each do |s| %>
