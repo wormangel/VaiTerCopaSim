@@ -75,20 +75,30 @@
 <div id="div_stats">
 	<h1>Estatísticas</h1>
 	
-	<p>Se você não esqueceu de colocar nada aí em cima, você já deve ter colado <strong><span id="total_stickers_collected"><%= @stickers_collected %></span></strong> figurinhas!</p>
+	<div id="stats_refresh_spinner" class="sticker_refresh_spinner" style="display:none;">
+		<div class="spinner"></div>
+		Atualizando estatísticas...
+	</div>
 	
-	<h5>Relação das faltantes</h5>
-	<ul>
-		<% @stats['teams'].keys.each do |s| %>	
-		<li id="li_stats_<%= s %>">
-			<strong> <%= s %>: </strong>
-			<% if @stats['teams'][s] == 0 %>
-				Completo!
-			<% else %>
-				Faltam <strong><%= @stats['teams'][s] %></strong> figurinhas</li> 
+	<div id="div_stats_container">
+		<p>Se você não esqueceu de colocar nada aí em cima, você já deve ter colado <strong><span id="total_stickers_collected"><%= @stats['collected'] %></span></strong> figurinhas!</p>
+	
+		<h5>Relação das faltantes</h5>
+		<ul>
+			<% @stats['teams'].keys.each do |s| %>	
+			<li id="li_stats_<%= s %>">
+				<strong> <%= s %>: </strong>
+				<% if @stats['teams'][s] == 0 %>
+					<span class="stat_value" style="color:green;"><strong>Completo!</strong></span>
+				<% elsif @stats['teams'][s] == 1 %>
+					<span class="stat_value">Só falta <strong>1</strong> figurinha!!</span>
+				<% else %>
+					<span class="stat_value">Faltam <strong><%= @stats['teams'][s] %></strong> figurinhas.</span>
+				<% end %>
+			</li>
 			<% end %>
-		<% end %>
-	</ul>
+		</ul>
+	</div>
 </div>
 
 <div id="modal_add_stickers" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">

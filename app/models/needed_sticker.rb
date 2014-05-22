@@ -56,19 +56,15 @@ class NeededSticker < ActiveRecord::Base
   	
   	@stats['teams'] = Hash.new
   	
-  	@stats['teams']['Especiais'] = 8 - @missing.where(user: user, stickers: { team: 'Especiais'}).size
-		@stats['teams']['Estádios'] = 24 - @missing.where(user: user, stickers: { team: 'Estádios'}).size
-		@stats['teams']['Propaganda'] = 9 - @missing.where(user: user, stickers: { team: 'Propaganda'}).size
-		
-		teams = ['Brasil', 'Croácia', 'México', 'Camarões', 'Espanha', 'Holanda', 'Chile', 
+		teams = ['Especiais', 'Estádios', 'Brasil', 'Croácia', 'México', 'Camarões', 'Espanha', 'Holanda', 'Chile', 
 			'Austrália', 'Colômbia', 'Grécia', 'Costa do Marfim', 'Japão', 'Uruguai', 'Costa Rica',
 			'Inglaterra', 'Itália', 'Suiça', 'Equador', 'França', 'Honduras', 'Argentina' ,
 			'Bósnia Herzegovina', 'Irã', 'Nigéria', 'Alemanha', 'Portugal', 'Gana', 'Estados Unidos',
-			'Bélgica', 'Algéria', 'Rússia', 'Coréia'
+			'Bélgica', 'Algéria', 'Rússia', 'Coréia', 'Propaganda'
 		]
 		
 		teams.each do |team|
-			@stats['teams'][team] = 19 - @missing.where(user: user, stickers: { team: team}).size
+			@stats['teams'][team] = @missing.where(user: user, stickers: { team: team}).size
 		end
 
   	@stats

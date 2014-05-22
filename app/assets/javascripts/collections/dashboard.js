@@ -45,6 +45,37 @@ $(document).ready(function(){
 			});
 		}
 		
+		function update_stats(){
+			var spinner = $('#stats_refresh_spinner');
+			$('#div_stats_container').hide();
+			spinner.show();
+			
+			$.ajax({url: "/collections/get_stats?user=" + user_uid,
+				complete: function(data){
+				
+					var stats = data.responseJSON.stats;
+					$('#total_stickers_collected').text(stats['collected']);
+					
+					
+					$.each(stats['teams'], function(key, value) {
+						var stat_value_span = $('#li_stats_' + key).find('.stat_value');
+						stat_value_span.empty(); // First remove everything
+					
+						if (value == 0) {
+							stat_value_span.replaceWith($('<span class="stat_value" style="color:green;"><strong>Completo!</strong></span>'));
+						} else if (value == 1) {
+							stat_value_span.replaceWith($('<span class="stat_value">Só falta <strong>1</strong> figurinha!!</span>'));
+						} else {
+							stat_value_span.replaceWith($('<span class="stat_value">Faltam <strong>' + value + '</strong> figurinhas</span>'));
+						}
+					});
+					
+					spinner.hide();
+					$('#div_stats_container').show();
+				}
+			});
+		}
+		
 		function get_sticker_from_json(number){
 			number = number.toUpperCase();
 			return stickers[number];
@@ -86,6 +117,7 @@ $(document).ready(function(){
 					count_elem.text(data.responseJSON.total);
 					spinner.hide();
 					stickers_container.show();
+					update_stats();
 				}
 			});
 		}

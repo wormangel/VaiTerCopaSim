@@ -93,6 +93,20 @@ class CollectionsController < ApplicationController
   	@outcome["stickers"] = stickers
   	@outcome["total"] = total
   	
+		respond_to do |format|
+			format.json  { render json: @outcome }
+		end
+	end
+	
+	def get_stats
+		user_uid = params[:user]	
+		user = User.find_by uid: user_uid 
+	
+		@outcome = Hash.new
+		
+		stats = NeededSticker.calculate_stats(user)
+		
+		@outcome["stats"] = stats
 		
 		respond_to do |format|
 			format.json  { render json: @outcome }
