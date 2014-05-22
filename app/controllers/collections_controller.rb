@@ -54,7 +54,7 @@ class CollectionsController < ApplicationController
   	case type
   	when "duplicate"
   		m = DuplicateSticker.method(:del_from_collection)
-  	when "needed"
+  	when "missing"
   		m = NeededSticker.method(:del_from_collection)
   	end
   	
