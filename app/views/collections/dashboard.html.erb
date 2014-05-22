@@ -6,6 +6,10 @@
   <button type="button" class="btn btn-primary btn-lg" id="btn_add_stickers">Adicionar figurinhas</button>
 </div>
 
+<div class="text-center">
+	<h1>Copie <strong><%= link_to 'este link', controller: 'collections', action: 'compare', uid: current_user.uid %></strong> este link para seus amigos! </h1>
+</div>
+
 <div id="div_dupes">
 	<h1>Meus refugos (<span id="dupes_count"><%=@dupes.sum(:qty)%></span>):</h1>
 	
