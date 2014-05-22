@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'collections/get_stickers'
 	get 'collections/del_stickers'
   get 'collections/get_stats'
+  match 'collections/compare/:uid', to: 'collections#compare', via: [:get]
   
   resources :stickers, :only => [:show, :index]
   

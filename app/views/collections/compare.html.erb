@@ -1,0 +1,35 @@
+<h1>Coleção do usuário <%= @other_user.name %><span class="zocial facebook icon" style="vertical-align: middle; margin-left: 0.5em;"></span>	</h1>
+
+<div id="div_other_user_dupes">
+	<h1>Refugos dele que lhe interessam (<%= @other_user_dupes.size %>):</h1>
+	
+	<div id="div_his_dupes_stickers_container" class="stickers_container">	
+	<% @other_user_dupes.each do |s| %>
+		<div class="sticker_placeholder" data-number="<%=s.sticker.number%>">
+			<div class="sticker_image_placeholder">
+				<img class="sticker_image" src="<%= ENV['STICKERS_IMAGES_PREFIX'] %><%= s.sticker.image %>" width="100" height="131">
+			</div>
+			<div style="text-align: center;">
+				<label class="sticker_number"><%= s.sticker.number %></label>
+			</div>
+		</div>
+	<% end %>
+	</div>
+</div>
+
+<div id="div_my_dupes">
+	<h1>Em troca você pode dar (<%= @my_dupes.size %>):</h1>
+	
+	<div id="div_my_dupes_stickers_container" class="stickers_container">	
+	<% @my_dupes.each do |s| %>
+		<div class="sticker_placeholder" data-number="<%=s.sticker.number%>">
+			<div class="sticker_image_placeholder">
+				<img class="sticker_image" src="<%= ENV['STICKERS_IMAGES_PREFIX'] %><%= s.sticker.image %>" width="100" height="131">
+			</div>
+			<div style="text-align: center;">
+				<label class="sticker_number"><%= s.sticker.number %></label>
+			</div>
+		</div>
+	<% end %>
+	</div>
+</div>

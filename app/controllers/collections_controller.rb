@@ -112,4 +112,32 @@ class CollectionsController < ApplicationController
 			format.json  { render json: @outcome }
 		end
 	end
+	
+	def compare
+		@other_user = User.find_by uid: params[:uid]
+		
+		@my_dupes = []
+		@other_user_dupes = []
+		
+		current_user_dupes = DuplicateSticker.joins(:sticker).where(user: current_user).order('stickers.order')
+		other_user_dupes = DuplicateSticker.joins(:sticker).where(user: @other_user).order('stickers.order')
+		current_user_missing = NeededSticker.joins(:sticker).where(user: current_user).order('stickers.order')
+		other_user_missing = NeededSticker.joins(:sticker).where(user: @other_user).order('stickers.order')
+		
+		current_user_dupes.each do |s|
+			he_needs = other_user_missing.exists?(stickers: { number: s.sticker.number })
+			if (he_needs)
+				@my_dupes.append(s)
+			end
+		end
+		
+		other_user_dupes.each do |s|
+			needed_by_me = current_user_missing.exists?(stickers: { number: s.sticker.number })
+			if (needed_by_me)
+				@other_user_dupes.append(s)
+			end
+		end
+		
+		
+	end
 end
