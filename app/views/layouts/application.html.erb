@@ -50,7 +50,7 @@
 							<% else %>
 								<% current_user.favorites.each do |fav| %>
 									<li>
-										<a href="<%= compare_url(uid: fav.favorite.uid)%>"><%= image_tag(profile_pic('small', fav.favorite.id))	%>   <%= fav.favorite.name %></a>
+										<a href="<%= compare_url(uid: fav.favorite.uid)%>"><%= image_tag(profile_pic('small', fav.favorite.uid))	%>   <%= fav.favorite.name %></a>
 									</li>
 								<% end %>
 							<% end %>
