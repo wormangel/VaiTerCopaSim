@@ -13,8 +13,8 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
   
-  def profile_pic(size = 'square')
-  	@profile_pic = 'http://graph.facebook.com/'+ current_user.uid + "/picture?type=" + size
+  def profile_pic(size = 'square', uid = current_user.uid)
+  	@profile_pic = 'http://graph.facebook.com/'+ uid + "/picture?type=" + size
   end
   
   helper_method :current_user

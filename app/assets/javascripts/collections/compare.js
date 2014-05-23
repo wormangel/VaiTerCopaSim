@@ -46,7 +46,7 @@ $(document).ready(function(){
 					update_fav_list();
 				},
 				error: function(data){
-					alert(data.responseJSON.message);
+					alert(data.message);
 				}
 			});
 		}
@@ -84,7 +84,7 @@ $(document).ready(function(){
 				$('#fav_list_spinner').hide();
 			},
 			error: function(data){
-				alert(data.responseJSON.message);
+				alert(data.message);
 			}
 		});
 	}
