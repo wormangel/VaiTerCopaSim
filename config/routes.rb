@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   
 	get 'favorites/create'
 	get 'favorites/destroy'
+  get 'favorites/get_favs'
   
   resources :stickers, :only => [:show, :index]
   

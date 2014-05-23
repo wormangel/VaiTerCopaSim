@@ -25,6 +25,8 @@ $(document).ready(function(){
 					btn.removeClass('btn-warning');
 					btn.addClass('btn-danger');
 					btn.data('action', 'remove');
+					
+					update_fav_list();
 				},
 				error: function(data){
 					alert(data.responseJSON.message);
@@ -40,6 +42,8 @@ $(document).ready(function(){
 					btn.removeClass('btn-danger');
 					btn.addClass('btn-warning');
 					btn.data('action', 'add');
+					
+					update_fav_list();
 				},
 				error: function(data){
 					alert(data.responseJSON.message);
@@ -47,4 +51,41 @@ $(document).ready(function(){
 			});
 		}
 	});
+	
+	function update_fav_list(){
+		$('#fav_list_spinner').show();
+		
+		$.ajax({url: "/favorites/get_favs",
+			success: function(data){
+				var container = $('#fav_list');
+				container.empty();
+				
+				if (data.favs.length > 0) {
+					$.each(data.favs, function(i, fav) {
+					
+						var li = $('<li></li>');
+						var a = $('<a href="/collections/compare/' + fav['favorite']['uid'] + '"></a>');
+						var img = $('<img src="http://graph.facebook.com/' + fav['favorite']['uid'] + '/picture?type=small"></img>');
+					
+						a.append(img);
+						a.append("   " + fav['favorite']['name']);
+					
+						li.append(a);
+						container.append(li);
+					});
+				} else {
+					var li = $('<li></li>');
+					var span = $('<span class="navbar-text">Você não tem favoritos!</span>');
+					
+					li.append(span);
+					container.append(li);
+				}
+				
+				$('#fav_list_spinner').hide();
+			},
+			error: function(data){
+				alert(data.responseJSON.message);
+			}
+		});
+	}
 });

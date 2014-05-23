@@ -46,4 +46,13 @@ class FavoritesController < ApplicationController
 		end
 	end
 	
+	def get_favs  	
+  	@outcome = Hash.new
+  	@outcome["favs"] = current_user.favorites
+  	
+		respond_to do |format|
+			format.json  { render json: @outcome }
+		end
+	end
+	
 end
