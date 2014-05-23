@@ -39,6 +39,16 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li class="active"><%= link_to "Home", controller: "collections", action: "dashboard" %></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Favoritos <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<% current_user.favorites.each do |fav| %>
+								<li>
+									<a href="<%= compare_url(uid: fav.favorite.uid)%>"><%= image_tag(profile_pic('small'))	%>   <%= fav.favorite.name %></a>
+								</li>
+							<% end %>
+						</ul>
+					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li>

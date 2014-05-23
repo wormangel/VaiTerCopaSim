@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get 'collections/get_stickers'
 	get 'collections/del_stickers'
   get 'collections/get_stats'
-  match 'collections/compare/:uid', to: 'collections#compare', via: [:get]
+  match 'collections/compare/:uid', to: 'collections#compare', via: [:get], as: :compare
   
 	get 'favorites/create'
 	get 'favorites/destroy'
