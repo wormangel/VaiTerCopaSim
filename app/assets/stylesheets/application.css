@@ -13,6 +13,7 @@
  *= require bootstrap.min
  *= require bootstrap-theme.min
  *= require zocial/zocial
+ *= require font-awesome
  *= require_tree .
  *= require_self
  */

@@ -43,3 +43,4 @@ gem 'omniauth-facebook', '1.4.0'
 gem 'rails_12factor', group: :production
 ruby "2.1.1"
 gem 'jwt', '0.1.4'
+gem 'font-awesome-sass'

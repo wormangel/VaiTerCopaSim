@@ -8,6 +8,9 @@ $(document).ready(function(){
 			$('#modal_add_stickers').modal();
 			$('#textarea_sticker_numbers').focus();
 			$('#textarea_sticker_numbers').val('');
+			
+			$('.fa-spinner').hide();
+			$('.btn_add_caption').show();
 		}
 		
 		function get_numbers_from_input(){
@@ -135,6 +138,8 @@ $(document).ready(function(){
 		});
 		
 		$('#btn_add_dupes').click(function(){
+			$('#btn_add_dupes_caption').hide();
+			$('#btn_add_dupes_spinner').show();
 			var stickers = get_numbers_from_input();
 			
 			if (stickers.length > 0) {
@@ -145,6 +150,8 @@ $(document).ready(function(){
 		});
 		
 		$('#btn_add_missing').click(function(){
+			$('#btn_add_missing_caption').hide();
+			$('#btn_add_missing_spinner').show();
 			var stickers = get_numbers_from_input();
 			
 			if (stickers.length > 0) {
