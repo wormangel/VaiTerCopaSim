@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'welcome/index'
 
-  get 'collections/dashboard'
+  get 'collections/dashboard', as: :dashboard
   
   get 'collections/add_stickers'
   get 'collections/get_stickers'

@@ -1,4 +1,6 @@
 class CollectionsController < ApplicationController
+	before_filter :require_authorization
+
   def dashboard
   	stickers = Sticker.all()
   	@stickers_json = Hash.new
