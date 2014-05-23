@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get 'collections/get_stats'
   match 'collections/compare/:uid', to: 'collections#compare', via: [:get]
   
+	get 'favorites/create'
+	get 'favorites/destroy'
+  
   resources :stickers, :only => [:show, :index]
   
   match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]

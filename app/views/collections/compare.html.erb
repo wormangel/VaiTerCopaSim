@@ -1,12 +1,27 @@
+<% content_for :custom_js do %>
+  <%= javascript_include_tag "collections/compare", "data-turbolinks-track" => true %>
+<% end %>
 
 <h1>Coleção do usuário 
-<a href="https://www.facebook.com/profile.php?uid=<%= @other_user.uid %>">
-	<%= @other_user.name %>
-	<span class="zocial facebook icon" style="vertical-align: middle; margin-left: 0.5em;"></span>
-	<%=	image_tag(profile_pic) %>	
-</a>
+	<a href="https://www.facebook.com/profile.php?uid=<%= @other_user.uid %>">
+		<%= @other_user.name %>
+		<span class="zocial facebook icon" style="vertical-align: middle; margin-left: 0.5em;"></span>
+		<%=	image_tag(profile_pic) %>	
+	</a>
+	<span id="div_favorite_btn">
+	<% if @other_user.is_favorite_of(current_user) %>
+		<button id="btn_toggle_favorite" class="btn btn-lg btn-danger" data-uid="<%=@other_user.uid%>" data-action="remove">
+			<i id="btn_toggle_favorite_spinner" class='fa fa-spinner fa-spin' style="display:none;"></i>
+			<span id="btn_toggle_favorite_caption">Remover dos favoritos</span> 
+		</button>
+	<% else %>
+		<button id="btn_toggle_favorite" class="btn btn-lg btn-warning" data-uid="<%=@other_user.uid%>" data-action="add">
+			<i id="btn_toggle_favorite_spinner" class='fa fa-spinner fa-spin' style="display:none;"></i>
+			<span id="btn_toggle_favorite_caption">Adicionar nos favoritos</span> 
+		</button>
+	<% end %>
+	</span>
 </h1>
-
 
 <div id="div_other_user_dupes">
 	<h1>Refugos dele que lhe interessam (<%= @other_user_dupes.size %>):</h1>

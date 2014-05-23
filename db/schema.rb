@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140513042842) do
+ActiveRecord::Schema.define(version: 20140523062902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(version: 20140513042842) do
 
   add_index "duplicate_stickers", ["sticker_id"], name: "index_duplicate_stickers_on_sticker_id", using: :btree
   add_index "duplicate_stickers", ["user_id"], name: "index_duplicate_stickers_on_user_id", using: :btree
+
+  create_table "favorites", force: true do |t|
+    t.integer "user_id"
+    t.integer "favorite_id"
+  end
+
+  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id", using: :btree
 
   create_table "needed_stickers", force: true do |t|
     t.integer  "user_id"
