@@ -1,0 +1,24 @@
+<h1 class="text-center">Usuários do TrocaCopa</h1>
+
+<br/>
+
+<div class="div_users text-center">
+<% @users_data.each do |user| %>
+	<div class="div_user">
+		<a href="<%= compare_url(uid: user['uid'])%>">
+			<span class="span_link_placeholder"></span>
+			<div class="div_user_profile">
+				<%=	image_tag(profile_pic('square', user['uid'])) %>
+			</div>
+			<h3><%= user['name'] %></h3>
+			<div class="div_user_stats text-center">
+				<span class="label_I_need_count"><strong>Refugos que te interessam: <%= user['dupes_I_need_count'] %></strong></span><br/>
+				<span class="label_he_needs_count"><strong>Refugos que você pode oferecer: <%= user['dupes_he_needs_count'] %></strong></span><br/>
+				<span class="label_completed_count">Coladas no álbum: <%= user['completed_count'] %></span><br/>
+				<span class="label_missing_count">Faltam pra completar o álbum: <%= user['missing_count'] %></span><br/>
+				<span class="label_dupes_count">Total de refugos: <%= user['dupe_count'] %></span><br/>
+			</div>
+		</a>
+	</div>
+<% end %>
+</div>

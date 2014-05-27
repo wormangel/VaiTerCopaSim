@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'search/users'
+
   get 'welcome/index'
 
   get 'collections/dashboard', as: :dashboard
@@ -12,6 +14,8 @@ Rails.application.routes.draw do
 	get 'favorites/create'
 	get 'favorites/destroy'
   get 'favorites/get_favs'
+  
+  get 'search/users'
   
   resources :stickers, :only => [:show, :index]
   
