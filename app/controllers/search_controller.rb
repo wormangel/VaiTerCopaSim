@@ -40,6 +40,7 @@ class SearchController < ApplicationController
   	end
   	
   	@users_data.sort! { |a,b| a["dupes_I_need_count"] <=> b["dupes_I_need_count"] }
+  	@users_data.reverse!
   	
   end
 end
