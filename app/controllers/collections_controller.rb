@@ -140,6 +140,10 @@ class CollectionsController < ApplicationController
 			end
 		end
 		
+		@other_user_collection_dupes = other_user_dupes
+		@other_user_collection_missing = other_user_missing
+		
+		@stats = NeededSticker.calculate_stats(@other_user)
 		
 	end
 end

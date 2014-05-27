@@ -23,36 +23,106 @@
 	</span>
 </h1>
 
-<div id="div_other_user_dupes">
-	<h1>Refugos dele que lhe interessam (<%= @other_user_dupes.size %>):</h1>
+<ul class="nav nav-tabs">
+	<li class="active"><a href="#compare_content" data-toggle="tab">Compare</a></li>
+  <li><a href="#collection_content" data-toggle="tab">Coleção do usuário</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="compare_content">
+		<div id="div_other_user_dupes">
+			<h1>Refugos dele que lhe interessam (<%= @other_user_dupes.size %>):</h1>
 	
-	<div id="div_his_dupes_stickers_container" class="stickers_container">	
-	<% @other_user_dupes.each do |s| %>
-		<div class="sticker_placeholder" data-number="<%=s.sticker.number%>">
-			<div class="sticker_image_placeholder">
-				<img class="sticker_image" src="<%= ENV['STICKERS_IMAGES_PREFIX'] %><%= s.sticker.image %>" width="100" height="131">
-			</div>
-			<div style="text-align: center;">
-				<label class="sticker_number"><%= s.sticker.number %></label>
+			<div id="div_his_dupes_stickers_container" class="stickers_container">	
+			<% @other_user_dupes.each do |s| %>
+				<div class="sticker_placeholder" data-number="<%=s.sticker.number%>">
+					<div class="sticker_image_placeholder">
+						<img class="sticker_image" src="<%= ENV['STICKERS_IMAGES_PREFIX'] %><%= s.sticker.image %>" width="100" height="131">
+					</div>
+					<div style="text-align: center;">
+						<label class="sticker_number"><%= s.sticker.number %></label>
+					</div>
+				</div>
+			<% end %>
 			</div>
 		</div>
-	<% end %>
-	</div>
+
+		<div id="div_my_dupes">
+			<h1>Em troca você pode dar (<%= @my_dupes.size %>):</h1>
+	
+			<div id="div_my_dupes_stickers_container" class="stickers_container">	
+			<% @my_dupes.each do |s| %>
+				<div class="sticker_placeholder" data-number="<%=s.sticker.number%>">
+					<div class="sticker_image_placeholder">
+						<img class="sticker_image" src="<%= ENV['STICKERS_IMAGES_PREFIX'] %><%= s.sticker.image %>" width="100" height="131">
+					</div>
+					<div style="text-align: center;">
+						<label class="sticker_number"><%= s.sticker.number %></label>
+					</div>
+				</div>
+			<% end %>
+			</div>
+		</div>
+  </div>
+  
+  <div class="tab-pane" id="collection_content">
+  	<h1>Refugos (<span id="dupes_count"><%=@other_user_collection_dupes.sum(:qty)%></span>):</h1>
+  	
+  	<div id="div_dupes_stickers_container" class="stickers_container">	
+		<% @other_user_collection_dupes.each do |s| %>
+			<div class="sticker_placeholder" data-number="<%=s.sticker.number%>">
+				<div class="sticker_image_placeholder">
+					<img class="sticker_image" src="<%= ENV['STICKERS_IMAGES_PREFIX'] %><%= s.sticker.image %>" width="100" height="131">
+					<% if s.qty > 1 %>
+					<span class="badge sticker_dupe_count"><%= s.qty %></span>
+					<% end %>
+				</div>
+				<div style="text-align: center;">
+					<label class="sticker_number"><%= s.sticker.number %></label>
+				</div>
+			</div>
+		<% end %>
+		</div>
+	
+		<div id="div_missing">
+			<h1>Faltam para ele completar o álbum (<span id="missing_count"><%=@other_user_collection_missing.size%></span>):</h1>
+			<div id="div_missing_stickers_container" class="stickers_container">
+			<% @other_user_collection_missing.each do |s| %>
+				<div class="sticker_placeholder" data-number="<%=s.sticker.number%>">
+					<div class="sticker_image_placeholder">
+						<img class="sticker_image" src="<%= ENV['STICKERS_IMAGES_PREFIX'] %><%=s.sticker.image%>" width="100" height="131">
+					</div>
+					<div style="text-align: center;">
+						<label class="sticker_number"><%= s.sticker.number %></label>
+					</div>
+				</div>
+			<% end %>		
+			</div>
+		</div>
+		
+		<div id="div_stats">
+			<h1>Estatísticas</h1>
+			<div id="div_stats_container">
+				<p>Coladas: <strong><span id="total_stickers_collected"><%= @stats['collected'] %></span></strong> figurinhas!</p>
+	
+				<h5>Relação das faltantes</h5>
+				<ul>
+					<% @stats['teams'].keys.each do |s| %>	
+					<li id="li_stats_<%= s %>">
+						<strong> <%= s %>: </strong>
+						<% if @stats['teams'][s] == 0 %>
+							<span class="stat_value" style="color:green;"><strong>Completo!</strong></span>
+						<% elsif @stats['teams'][s] == 1 %>
+							<span class="stat_value">Só falta <strong>1</strong> figurinha!!</span>
+						<% else %>
+							<span class="stat_value">Faltam <strong><%= @stats['teams'][s] %></strong> figurinhas.</span>
+						<% end %>
+					</li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+
+  </div>
 </div>
 
-<div id="div_my_dupes">
-	<h1>Em troca você pode dar (<%= @my_dupes.size %>):</h1>
-	
-	<div id="div_my_dupes_stickers_container" class="stickers_container">	
-	<% @my_dupes.each do |s| %>
-		<div class="sticker_placeholder" data-number="<%=s.sticker.number%>">
-			<div class="sticker_image_placeholder">
-				<img class="sticker_image" src="<%= ENV['STICKERS_IMAGES_PREFIX'] %><%= s.sticker.image %>" width="100" height="131">
-			</div>
-			<div style="text-align: center;">
-				<label class="sticker_number"><%= s.sticker.number %></label>
-			</div>
-		</div>
-	<% end %>
-	</div>
-</div>
