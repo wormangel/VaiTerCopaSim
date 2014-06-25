@@ -8,7 +8,7 @@ class SearchController < ApplicationController
 		current_user_missing = NeededSticker.joins(:sticker).where(user: current_user).order('stickers.order')
 
   	users.each do |u|
-  		puts "Users: Handling user ", u.name
+  		puts "Users: Handling user #{u.name}"
   		u_data = Hash.new
 			u_data["uid"] = u.uid
 			u_data["name"] = u.name
