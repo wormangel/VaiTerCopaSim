@@ -1,12 +1,17 @@
 class SearchController < ApplicationController
   def users
-  	users = User.where.not(uid: current_user.uid)
+  	#users = User.where.not(uid: current_user.uid)
   	
   	@users_data = []
 
-		current_user_dupes = DuplicateSticker.joins(:sticker).where(user: current_user).order('stickers.order')
-		current_user_missing = NeededSticker.joins(:sticker).where(user: current_user).order('stickers.order')
+	#current_user_dupes = DuplicateSticker.joins(:sticker).where(user: current_user).order('stickers.order')
+	#current_user_missing = NeededSticker.joins(:sticker).where(user: current_user).order('stickers.order')
 
+	list = DuplicateSticker.where.not(user: current_user).where(sticker: NeededSticker.where(user: current_user)).group('duplicate_stickers.user_id').count
+	puts list
+	puts 'OKOKOKOKOKOKOKOKOKOKOK'
+	
+=begin	
   	users.each do |u|
   		puts "Users: Handling user #{u.name}"
   		u_data = Hash.new
@@ -19,7 +24,7 @@ class SearchController < ApplicationController
 			user_missing = NeededSticker.joins(:sticker).where(user: u).order('stickers.order')
 			u_data['missing_count'] = user_missing.size
 			u_data['completed_count'] = 649 - user_missing.size
-=begin
+
 			u_data['dupes_I_need_count'] = 0
 			u_data['dupes_he_needs_count'] = 0
 			
@@ -36,12 +41,12 @@ class SearchController < ApplicationController
 					u_data['dupes_I_need_count'] = u_data['dupes_I_need_count'] + 1
 				end
 			end
-=end			
+			
 			@users_data.append(u_data)
   	end
   	
-  	#@users_data.sort! { |a,b| a["dupes_I_need_count"] <=> b["dupes_I_need_count"] }
-  	#@users_data.reverse!
-  	
+  	@users_data.sort! { |a,b| a["dupes_I_need_count"] <=> b["dupes_I_need_count"] }
+  	@users_data.reverse!
+=end  	
   end
 end
