@@ -7,46 +7,22 @@ class SearchController < ApplicationController
 	#current_user_dupes = DuplicateSticker.joins(:sticker).where(user: current_user).order('stickers.order')
 	#current_user_missing = NeededSticker.joins(:sticker).where(user: current_user).order('stickers.order')
 
-	list = DuplicateSticker.where.not(user: current_user).where(sticker: NeededSticker.where(user: current_user)).group('duplicate_stickers.user_id').count
-	puts list
-	puts 'OKOKOKOKOKOKOKOKOKOKOK'
-	
-=begin	
-  	users.each do |u|
-  		puts "Users: Handling user #{u.name}"
-  		u_data = Hash.new
-			u_data["uid"] = u.uid
-			u_data["name"] = u.name
-		
-			user_dupes = DuplicateSticker.joins(:sticker).where(user: u).order('stickers.order')
-			u_data['dupe_count'] = user_dupes.size
-			
-			user_missing = NeededSticker.joins(:sticker).where(user: u).order('stickers.order')
-			u_data['missing_count'] = user_missing.size
-			u_data['completed_count'] = 649 - user_missing.size
+	list = DuplicateSticker.where.not(user: current_user).where(sticker: NeededSticker.select('sticker_id').where(user: current_user)).group(:user).order('count_all DESC').count()
 
-			u_data['dupes_I_need_count'] = 0
-			u_data['dupes_he_needs_count'] = 0
-			
-			current_user_dupes.each do |s|
-				he_needs = user_missing.exists?(stickers: { number: s.sticker.number })
-				if (he_needs)
-					u_data['dupes_he_needs_count'] = u_data['dupes_he_needs_count'] + 1
-				end
-			end
+  	list.keys.each do |user|
+  		
+  		u_data = Hash.new
+  		
+		u_data["uid"] = user.uid
+		u_data["name"] = user.name
+		u_data['dupe_count'] = list[user]
+		u_data['missing_count'] = 0
+		u_data['completed_count'] = 0
+		u_data['dupes_I_need_count'] = 0
+		u_data['dupes_he_needs_count'] = 0
 		
-			user_dupes.each do |s|
-				needed_by_me = current_user_missing.exists?(stickers: { number: s.sticker.number })
-				if (needed_by_me)
-					u_data['dupes_I_need_count'] = u_data['dupes_I_need_count'] + 1
-				end
-			end
-			
-			@users_data.append(u_data)
+		@users_data.append(u_data)
   	end
-  	
-  	@users_data.sort! { |a,b| a["dupes_I_need_count"] <=> b["dupes_I_need_count"] }
-  	@users_data.reverse!
-=end  	
+
   end
 end

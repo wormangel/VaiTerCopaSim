@@ -12,11 +12,11 @@
 			</div>
 			<h3><%= user['name'] %></h3>
 			<div class="div_user_stats text-center">
-				<span class="label_completed_count">Coladas no álbum: <%= user['completed_count'] %></span><br/>
-				<span class="label_missing_count">Faltam pra completar o álbum: <%= user['missing_count'] %></span><br/>
-				<span class="label_dupes_count">Total de refugos: <%= user['dupe_count'] %></span><br/>
+				<span class="label_dupes_count">Total de refugos que te interessam: <%= user['dupe_count'] %></span><br/>
 				<button class="btn" style="display:none;">Comparar!</button>
 				<div class="div_stats_compared" style="display:none;">
+					<span class="label_completed_count">Coladas no álbum: <%= user['completed_count'] %></span><br/>
+					<span class="label_missing_count">Faltam pra completar o álbum: <%= user['missing_count'] %></span><br/>
 					<span class="label_I_need_count"><strong>Refugos que te interessam: <span class="label_I_need_count_value"></span></strong></span><br/>
 					<span class="label_he_needs_count"><strong>Refugos que você pode oferecer: <span class="label_he_needs_count_value"></span></strong></span><br/>
 				</div>
