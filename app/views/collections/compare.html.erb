@@ -3,7 +3,7 @@
 <% end %>
 
 <h1>Coleção do usuário 
-	<a href="https://www.facebook.com/profile.php?uid=<%= @other_user.uid %>">
+	<a href="https://www.facebook.com/<%= @other_user.uid %>">
 		<%= @other_user.name %>
 		<span class="zocial facebook icon" style="vertical-align: middle; margin-left: 0.5em;"></span>
 		<%=	image_tag(profile_pic('square', @other_user.uid)) %>	
